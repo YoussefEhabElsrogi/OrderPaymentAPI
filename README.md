@@ -423,4 +423,4 @@ If you encounter any issues or have questions, please open an issue in the repos
 
 ---
 
-**Built with ❤️ using Laravel**
+**Built with Youssef Elsrogi using Laravel**

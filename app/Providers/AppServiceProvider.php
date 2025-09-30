@@ -24,6 +24,7 @@ use App\Services\{
     PaymentService,
 };
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -43,6 +44,11 @@ class AppServiceProvider extends ServiceProvider
         // Payment
         $this->app->bind(PaymentRepositoryInterface::class, PaymentRepository::class);
         $this->app->bind(PaymentServiceInterface::class, PaymentService::class);
+
+        // Force HTTPS in production
+        if (config('app.env') === 'production') {
+            URL::forceScheme('https');
+        }
     }
 
     /**

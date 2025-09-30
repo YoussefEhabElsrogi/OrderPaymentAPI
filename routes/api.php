@@ -50,5 +50,4 @@ Route::middleware('auth:api')->group(function () {
         Route::post('payments', [PaymentController::class, 'processPayment']);
         Route::get('payments', [PaymentController::class, 'getOrderPayments']);
     });
-    Route::get('get-available-payment-methods', [PaymentController::class, 'getAvailablePaymentMethods']);
 });

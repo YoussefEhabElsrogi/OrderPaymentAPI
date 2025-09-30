@@ -1,61 +1,426 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🛒 OrderPaymentAPI
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**Order Management and Payment Processing System** - A comprehensive Laravel API for managing orders and processing payments with secure authentication
 
-## About Laravel
+## ✨ Key Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- 🔐 **Secure Authentication** using JWT
+- 📦 **Order Management** - Create, update, and delete orders
+- 💳 **Payment Processing** - Support for multiple payment gateways (PayPal, Stripe, Bank Transfer)
+- 🏗️ **Clean Architecture** - Repository Pattern and Service Layer
+- 🧪 **Comprehensive Testing** - Unit Tests and Feature Tests
+- 📚 **Complete Documentation** - Clear examples for all APIs
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🚀 Installation & Setup
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Prerequisites
 
-## Learning Laravel
+- **PHP** 8.2 or higher
+- **Composer** for dependency management
+- **SQLite** (default) or MySQL/PostgreSQL
+- **Laravel** 11.x
+- **JWT** for authentication
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Installation Steps
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/YoussefEhabElsrogi/OrderPaymentAPI.git
+   cd OrderPaymentAPI
+   ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+2. **Install dependencies**
+   ```bash
+   composer install
+   ```
 
-## Laravel Sponsors
+3. **Environment setup**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   php artisan jwt:secret
+   ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+4. **Database setup**
+   ```bash
+   # For SQLite (default)
+   touch database/database.sqlite
+   
+   # Or configure MySQL/PostgreSQL in .env
+   php artisan migrate
+   
+   # Run seeders (optional)
+   php artisan db:seed
+   ```
 
-### Premium Partners
+5. **Run the application**
+   ```bash
+   php artisan serve
+   ```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+The API will be available at: `http://localhost:8000/api`
 
-## Contributing
+## 📚 Used Libraries
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- **Laravel 11.x** - Main framework
+- **tymon/jwt-auth** - JWT authentication
+- **Laravel Sanctum** - API protection
+- **PHPUnit** - Testing framework
+- **Faker** - Fake data generation
 
-## Code of Conduct
+## 🏗️ Project Structure
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```
+OrderPaymentAPI/
+├── app/
+│   ├── Enums/              # Enumerations (OrderStatus, PaymentMethod, etc.)
+│   ├── Exceptions/         # Custom exceptions
+│   ├── Http/
+│   │   ├── Controllers/    # Controllers (Auth, Order, Payment)
+│   │   ├── Requests/       # Validation requests
+│   │   └── Resources/      # API resources
+│   ├── Interfaces/         # Interfaces (Repository, Service)
+│   ├── Models/             # Models (User, Order, Payment)
+│   ├── Repositories/       # Data access layer
+│   ├── Services/           # Business logic layer
+│   └── Traits/             # Shared traits
+├── database/
+│   ├── migrations/         # Database files
+│   ├── factories/          # Fake data factories
+│   └── seeders/            # Data seeders
+├── tests/                  # Tests
+└── routes/api.php          # API routes
+```
 
-## Security Vulnerabilities
+## 📋 API Endpoints
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 🔐 Authentication
 
-## License
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| POST | `/api/auth/register` | Register new user | ❌ |
+| POST | `/api/auth/login` | User login | ❌ |
+| GET | `/api/auth/me` | Get current user data | ✅ |
+| POST | `/api/auth/logout` | User logout | ✅ |
+| POST | `/api/auth/refresh` | Refresh JWT Token | ✅ |
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 📦 Order Management
+
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| GET | `/api/orders` | List user's orders | ✅ |
+| POST | `/api/orders` | Create new order | ✅ |
+| GET | `/api/orders/{id}` | Get order details | ✅ |
+| PATCH | `/api/orders/{id}` | Update order | ✅ |
+| DELETE | `/api/orders/{id}` | Delete order | ✅ |
+
+### 💳 Payment Processing
+
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| GET | `/api/payments` | List all payments | ✅ |
+| GET | `/api/payments/methods` | Get available payment methods | ✅ |
+| POST | `/api/orders/{id}/payments` | Process payment for order | ✅ |
+| GET | `/api/orders/{id}/payments` | Get payments for order | ✅ |
+
+## 💳 Available Payment Methods
+
+| Method | Description | Required Fields |
+|--------|-------------|-----------------|
+| **PayPal** | PayPal payment | `paypal_email` |
+| **Stripe** | Credit card payment | `card_number`, `expiry_month`, `expiry_year`, `cvv` |
+| **Bank Transfer** | Bank transfer | `bank_name`, `account_number` |
+
+## 💡 Usage Examples
+
+### 1️⃣ User Registration
+
+```bash
+curl -X POST http://localhost:8000/api/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "John Doe",
+    "email": "john@example.com",
+    "password": "password123",
+    "password_confirmation": "password123"
+  }'
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "User registered successfully",
+  "data": {
+    "user": {
+      "id": 1,
+      "name": "John Doe",
+      "email": "john@example.com"
+    },
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+  }
+}
+```
+
+### 2️⃣ User Login
+
+```bash
+curl -X POST http://localhost:8000/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "john@example.com",
+    "password": "password123"
+  }'
+```
+
+### 3️⃣ Create New Order
+
+```bash
+curl -X POST http://localhost:8000/api/orders \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -d '{
+    "notes": "My first order",
+    "items": [
+      {
+        "product_name": "Laptop",
+        "quantity": 1,
+        "price": 999.99,
+        "description": "High-performance laptop"
+      }
+    ]
+  }'
+```
+
+### 4️⃣ Process PayPal Payment
+
+```bash
+curl -X POST http://localhost:8000/api/orders/1/payments \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -d '{
+    "payment_method": "paypal",
+    "paypal_email": "buyer@example.com"
+  }'
+```
+
+### 5️⃣ Process Stripe Payment
+
+```bash
+curl -X POST http://localhost:8000/api/orders/1/payments \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -d '{
+    "payment_method": "stripe",
+    "card_number": "4242424242424242",
+    "expiry_month": "12",
+    "expiry_year": "2025",
+    "cvv": "123"
+  }'
+```
+
+## 📊 System States
+
+### 📦 Order States
+- **pending** - Pending (default)
+- **confirmed** - Confirmed
+- **shipped** - Shipped
+- **delivered** - Delivered
+- **cancelled** - Cancelled
+
+### 💳 Payment States
+- **pending** - Pending
+- **processing** - Processing
+- **completed** - Completed
+- **failed** - Failed
+- **refunded** - Refunded
+
+## 📋 Business Rules
+
+### 📦 Orders
+- Orders start with "pending" status
+- Only confirmed orders can accept payments
+- Orders with payments cannot be deleted
+- Total amount is automatically calculated from order items
+
+### 💳 Payments
+- Payments are only allowed for confirmed orders
+- Each payment method has specific validation rules
+- Payment processing is simulated (90% success rate for demo)
+- Failed payments are logged with error details
+
+## 📤 Response Examples
+
+### ✅ Success Response
+```json
+{
+  "success": true,
+  "message": "Order created successfully",
+  "data": {
+    "id": 1,
+    "user_id": 1,
+    "status": "pending",
+    "total_amount": 999.99,
+    "notes": "My first order",
+    "items": [
+      {
+        "id": 1,
+        "product_name": "Laptop",
+        "quantity": 1,
+        "price": 999.99,
+        "description": "High-performance laptop"
+      }
+    ],
+    "created_at": "2024-01-01T12:00:00.000000Z"
+  }
+}
+```
+
+### ❌ Error Response
+```json
+{
+  "success": false,
+  "message": "Invalid data",
+  "errors": {
+    "email": ["The email field is required"],
+    "password": ["The password must be at least 8 characters"]
+  }
+}
+```
+
+## 🧪 Testing
+
+### Running Tests
+
+```bash
+# Run all tests
+php artisan test
+
+# Run specific test suites
+php artisan test --testsuite=Feature
+php artisan test --testsuite=Unit
+```
+
+## 🔧 Adding New Payment Gateways
+
+To add a new payment gateway:
+
+1. **Create the strategy class** implementing `PaymentStrategyInterface`
+2. **Register it in PaymentFactory** constructor
+3. **Add it to PaymentMethod enum**
+4. **Update validation rules** in ProcessPaymentRequest
+5. **Add migration** if needed
+
+## 🚀 Advanced Features
+
+### 🔐 Security
+- **JWT Authentication** - Secure authentication
+- **Request Validation** - Data validation
+- **Rate Limiting** - Request rate limiting
+- **CORS Protection** - Cross-origin request protection
+
+### 📊 Monitoring & Logging
+- **Transaction Logging** - All transactions logged
+- **Error Handling** - Comprehensive error handling
+- **API Response Standardization** - Standardized response format
+
+### 🧪 Testing
+- **Unit Tests** - Unit testing
+- **Feature Tests** - Feature testing
+- **Database Testing** - Database testing
+- **Mock Payment Gateways** - Payment gateway mocking
+
+## 📄 License
+
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! Please read the contribution guide before submitting a Pull Request.
+
+## 📮 Using Postman
+
+You can import the Postman Collection file included with the project to easily test all APIs:
+
+1. Open Postman
+2. Click "Import"
+3. Select `OrderPaymentAPI.postman_collection.json` file
+4. Start testing APIs
+
+## 🔧 Environment Settings
+
+Make sure to configure the following variables in your `.env` file:
+
+```env
+APP_NAME="OrderPaymentAPI"
+APP_ENV=local
+APP_DEBUG=true
+APP_URL=http://localhost:8000
+
+DB_CONNECTION=sqlite
+DB_DATABASE=database/database.sqlite
+
+JWT_SECRET=your-jwt-secret-key
+JWT_TTL=60
+```
+
+## 🌐 Production Deployment
+
+### Production Settings
+
+```env
+APP_ENV=production
+APP_DEBUG=false
+APP_URL=https://yourdomain.com
+
+DB_CONNECTION=mysql
+DB_HOST=your-db-host
+DB_DATABASE=your-db-name
+DB_USERNAME=your-db-user
+DB_PASSWORD=your-db-password
+
+JWT_SECRET=your-production-jwt-secret
+```
+
+### Production Commands
+
+```bash
+# Optimize performance
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+
+# Run background jobs
+php artisan queue:work
+
+# Monitor logs
+tail -f storage/logs/laravel.log
+```
+
+## 🔮 Future Updates
+
+### Planned Features
+- [ ] **Email Notifications** - Order confirmation emails
+- [ ] **Discount System** - Coupons and discounts
+- [ ] **Shipping Tracking** - Track shipping status
+- [ ] **Admin Dashboard** - Order and payment management
+- [ ] **Reports API** - Sales and statistics reports
+- [ ] **Multi-Currency Support** - Multiple currency support
+- [ ] **Review System** - Product and service reviews
+
+### Technical Improvements
+- [ ] **Redis Caching** - Performance optimization
+- [ ] **API Rate Limiting** - Request rate limiting
+- [ ] **Webhook Support** - Webhook support
+- [ ] **GraphQL API** - Alternative API
+- [ ] **Microservices** - Service decomposition
+
+## 📞 Support
+
+If you encounter any issues or have questions, please open an issue in the repository.
+
+---
+
+**Built with ❤️ using Laravel**

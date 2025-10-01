@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Payments;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ShowPaymentRequest extends FormRequest
+class ReadPaymentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return auth()->id() === $this->payment->order->user_id;
+        return true;
     }
 
     /**

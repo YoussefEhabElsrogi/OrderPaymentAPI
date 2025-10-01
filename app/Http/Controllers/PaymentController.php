@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\PaymentStatus;
-use App\Http\Requests\{
+use App\Http\Requests\Payments\{
     ProcessPaymentRequest,
     ReadPaymentRequest,
     ShowPaymentRequest,
@@ -13,7 +13,7 @@ use App\Interfaces\Repositories\{
     OrderRepositoryInterface,
     PaymentRepositoryInterface,
 };
-use App\Interfaces\Services\PaymentServiceInterface;
+use App\Services\PaymentService;
 use App\Traits\{
     ApiResponse,
     TransactionLogging
@@ -30,12 +30,12 @@ class PaymentController extends Controller
     /**
      * PaymentController constructor
      *
-     * @param PaymentServiceInterface $paymentService
+     * @param PaymentService $paymentService
      * @param PaymentRepositoryInterface $paymentRepository
      * @param OrderRepositoryInterface $orderRepository
      */
     public function __construct(
-        private PaymentServiceInterface $paymentService,
+        private PaymentService $paymentService,
         private PaymentRepositoryInterface $paymentRepository,
         private OrderRepositoryInterface $orderRepository
     ) {

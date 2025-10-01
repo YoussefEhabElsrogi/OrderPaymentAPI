@@ -9,7 +9,6 @@ use App\Enums\{
 };
 use App\Models\Payment;
 use App\Interfaces\Repositories\PaymentRepositoryInterface;
-use App\Interfaces\Services\PaymentServiceInterface;
 use App\Models\Order;
 use App\Services\Payment\PaymentFactory;
 use App\Services\OrderService;
@@ -17,7 +16,7 @@ use App\Exceptions\PaymentException;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 
-class PaymentService implements PaymentServiceInterface
+class PaymentService
 {
     public function __construct(
         private PaymentRepositoryInterface $paymentRepository,

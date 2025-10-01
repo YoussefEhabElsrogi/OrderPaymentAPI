@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Orders;
 
 use App\Enums\OrderStatus;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class ReadOrderRequest extends FormRequest
+class UpdateOrderStatusRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return auth()->id() === $this->order->user_id;
     }
 
     /**
@@ -22,8 +22,7 @@ class ReadOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status' => ['sometimes', Rule::enum(OrderStatus::class)],
-            'per_page' => ['sometimes', 'integer', 'min:1'],
+            'status' => ['required', Rule::enum(OrderStatus::class)],
         ];
     }
 
@@ -33,9 +32,8 @@ class ReadOrderRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'per_page.integer' => 'Per page formate is invalid',
-            'per_page.min' => 'Per page must be at least 1',
-            'status.enum' => 'Invalid status value',
+            'status.required' => 'Order status is required',
+            'status.enum' => 'Invalid order status',
         ];
     }
 }

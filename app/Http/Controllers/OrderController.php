@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Enums\OrderStatus;
-use App\Http\Requests\
-{
+use App\Http\Requests\Orders\{
     StoreOrderRequest,
     UpdateOrderRequest,
     ReadOrderRequest,

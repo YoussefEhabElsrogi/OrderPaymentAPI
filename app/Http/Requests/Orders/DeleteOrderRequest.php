@@ -1,17 +1,19 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Orders;
 
+use App\Enums\OrderStatus;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class ReadPaymentRequest extends FormRequest
+class DeleteOrderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return auth()->id() === $this->order->user_id;
     }
 
     /**
@@ -19,6 +21,8 @@ class ReadPaymentRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [];
+        return [
+
+        ];
     }
 }

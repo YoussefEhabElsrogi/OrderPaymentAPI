@@ -23,19 +23,6 @@ class Order extends Model
         'notes',
     ];
 
-    # START BOOTSTRAP
-    protected static function boot()
-    {
-        parent::boot();
-        static::creating(function ($order) {
-            // Only set user_id if not already set and user is authenticated
-            if (!$order->user_id && auth()->check()) {
-                $order->user_id = auth()->id();
-            }
-        });
-    }
-    # END BOOTSTRAP
-
     protected function casts(): array
     {
         return [

@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Orders;
 
+use App\Enums\OrderStatus;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class LoginRequest extends FormRequest
+class ReadOrderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -20,8 +22,8 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'email'],
-            'password' => ['required', 'string'],
+            'status' => ['sometimes', Rule::enum(OrderStatus::class)],
+            'per_page' => ['sometimes', 'integer', 'min:1'],
         ];
     }
 
@@ -31,9 +33,9 @@ class LoginRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'email.required' => 'Email is required',
-            'email.email' => 'Email must be a valid email address',
-            'password.required' => 'Password is required',
+            'per_page.integer' => 'Per page formate is invalid',
+            'per_page.min' => 'Per page must be at least 1',
+            'status.enum' => 'Invalid status value',
         ];
     }
 }

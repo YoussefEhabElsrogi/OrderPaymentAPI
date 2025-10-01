@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Payments;
 
-use App\Enums\OrderStatus;
-use Illuminate\Foundation\Http\FormRequest;
+use App\Enums\PaymentStatus;
 use Illuminate\Validation\Rule;
+use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateOrderStatusRequest extends FormRequest
+class UpdatePaymentStatusRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return auth()->id() === $this->order->user_id;
+        return auth()->id() === $this->payment->order->user_id;
     }
 
     /**
@@ -22,7 +22,7 @@ class UpdateOrderStatusRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status' => ['required', Rule::enum(OrderStatus::class)],
+            'status' => ['required', Rule::enum(PaymentStatus::class)],
         ];
     }
 
@@ -32,8 +32,8 @@ class UpdateOrderStatusRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'status.required' => 'Order status is required',
-            'status.enum' => 'Invalid order status',
+            'status.required' => 'Payment status is required',
+            'status.enum' => 'Invalid payment status',
         ];
     }
 }

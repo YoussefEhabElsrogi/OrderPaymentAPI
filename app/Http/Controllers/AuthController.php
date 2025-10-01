@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\{
+use App\Http\Requests\Auth\{
     LoginRequest,
     RegisterRequest
 };
@@ -11,14 +11,14 @@ use App\Traits\{
     TransactionLogging
 };
 use Illuminate\Http\JsonResponse;
-use App\Interfaces\Services\UserServiceInterface;
+use App\Services\UserService;
 use App\Exceptions\UserException;
 
 class AuthController extends Controller
 {
     use TransactionLogging, ApiResponse;
 
-    public function __construct(private UserServiceInterface $userService)
+    public function __construct(private UserService $userService)
     {
     }
 

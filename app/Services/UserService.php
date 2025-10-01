@@ -3,14 +3,13 @@
 namespace App\Services;
 
 use App\Interfaces\Repositories\UserRepositoryInterface;
-use App\Interfaces\Services\UserServiceInterface;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Exceptions\UserException;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\UserResource;
 
-class UserService implements UserServiceInterface
+class UserService
 {
     public function __construct(private UserRepositoryInterface $userRepository)
     {

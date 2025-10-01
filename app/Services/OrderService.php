@@ -5,10 +5,9 @@ namespace App\Services;
 use App\Enums\OrderStatus;
 use App\Models\Order;
 use App\Interfaces\Repositories\OrderRepositoryInterface;
-use App\Interfaces\Services\OrderServiceInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class OrderService implements OrderServiceInterface
+class OrderService
 {
     public function __construct(
         private OrderRepositoryInterface $orderRepository

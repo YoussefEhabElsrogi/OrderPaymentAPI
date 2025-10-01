@@ -58,7 +58,7 @@
    php artisan serve
    ```
 
-The API will be available at: `http://localhost:8000/api`
+The API will be available at: `https://orderpaymentapi-production.up.railway.app/api`
 
 ## 📚 Used Libraries
 
@@ -136,7 +136,7 @@ OrderPaymentAPI/
 ### 1️⃣ User Registration
 
 ```bash
-curl -X POST http://localhost:8000/api/auth/register \
+curl -X POST https://orderpaymentapi-production.up.railway.app/api/auth/register \
   -H "Content-Type: application/json" \
   -d '{
     "name": "John Doe",
@@ -165,7 +165,7 @@ curl -X POST http://localhost:8000/api/auth/register \
 ### 2️⃣ User Login
 
 ```bash
-curl -X POST http://localhost:8000/api/auth/login \
+curl -X POST https://orderpaymentapi-production.up.railway.app/api/auth/login \
   -H "Content-Type: application/json" \
   -d '{
     "email": "john@example.com",
@@ -176,7 +176,7 @@ curl -X POST http://localhost:8000/api/auth/login \
 ### 3️⃣ Create New Order
 
 ```bash
-curl -X POST http://localhost:8000/api/orders \
+curl -X POST https://orderpaymentapi-production.up.railway.app/api/orders \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN" \
   -d '{
@@ -195,7 +195,7 @@ curl -X POST http://localhost:8000/api/orders \
 ### 4️⃣ Process PayPal Payment
 
 ```bash
-curl -X POST http://localhost:8000/api/orders/1/payments \
+curl -X POST https://orderpaymentapi-production.up.railway.app/api/orders/1/payments \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN" \
   -d '{
@@ -207,7 +207,7 @@ curl -X POST http://localhost:8000/api/orders/1/payments \
 ### 5️⃣ Process Stripe Payment
 
 ```bash
-curl -X POST http://localhost:8000/api/orders/1/payments \
+curl -X POST https://orderpaymentapi-production.up.railway.app/api/orders/1/payments \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN" \
   -d '{
@@ -357,7 +357,7 @@ Make sure to configure the following variables in your `.env` file:
 APP_NAME="OrderPaymentAPI"
 APP_ENV=local
 APP_DEBUG=true
-APP_URL=http://localhost:8000
+APP_URL=https://orderpaymentapi-production.up.railway.app
 
 DB_CONNECTION=sqlite
 DB_DATABASE=database/database.sqlite
